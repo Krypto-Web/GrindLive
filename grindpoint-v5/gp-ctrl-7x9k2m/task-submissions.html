@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Task Submissions — Grindpoint Admin</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .admin-sidebar .sidebar__link.active{color:var(--error);background:var(--error-bg);}.admin-sidebar .sidebar__link.active::before{background:var(--error);}
+    .proof-thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--border-subtle);cursor:pointer;transition:transform .15s;}
+    .proof-thumb:hover{transform:scale(1.1);}
+  </style>
+</head>
+<body style="visibility:hidden">
+<nav class="navbar" style="border-bottom-color:rgba(239,68,68,.25);">
+  <div class="navbar__inner">
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a href="../index.html" class="navbar__logo">Grind<span class="logo-accent">point</span></a>
+      <span class="admin-badge">Admin Panel</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <span id="adminName" style="font-size:.82rem;color:var(--text-secondary);">Admin</span>
+      <button onclick="signOut()" class="btn btn-secondary btn-sm">Sign Out</button>
+    </div>
+  </div>
+</nav>
+<div class="page-wrapper">
+  <aside class="sidebar admin-sidebar">
+    <nav class="sidebar__nav">
+      <span class="sidebar__label">Overview</span>
+      <a href="index.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <a href="analytics.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a>
+      <a href="fraud.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Fraud Detection</a>
+      <span class="sidebar__label">Manage</span>
+      <a href="users.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>All Users</a>
+      <a href="task-submissions.html" class="sidebar__link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Task Submissions</a>
+      <a href="withdrawals.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Withdrawals</a>
+      <a href="tasks-admin.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>Task Manager</a>
+      <a href="announcements.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 000 6h20V17z"/></svg>Announcements</a>
+      <a href="settings.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <h1 class="page-title">Task Submissions</h1>
+        <p class="page-subtitle" id="subSummary">Loading…</p>
+      </div>
+      <select id="statusFilter" class="form-control" style="width:160px;">
+        <option value="pending" selected>⏳ Pending</option>
+        <option value="approved">✅ Approved</option>
+        <option value="rejected">❌ Rejected</option>
+        <option value="all">All</option>
+      </select>
+    </div>
+    <div class="stats-grid mb-6" id="subStats">
+      <div class="stat-card skeleton" style="height:110px;"></div>
+      <div class="stat-card skeleton" style="height:110px;"></div>
+      <div class="stat-card skeleton" style="height:110px;"></div>
+    </div>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead><tr><th>User</th><th>Task</th><th>Reward</th><th>Proof</th><th>Note</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="subBody"><tr><td colspan="8" style="text-align:center;padding:3rem;"><div class="skeleton" style="height:20px;width:200px;margin:0 auto;border-radius:8px;"></div></td></tr></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- Proof lightbox -->
+<div class="modal" id="proofModal">
+  <div class="modal__box" style="max-width:700px;">
+    <div class="modal__header">
+      <h3 class="modal__title">Proof Screenshot</h3>
+      <button class="modal__close" onclick="closeModal('proofModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal__body" style="text-align:center;">
+      <img id="proofImg" src="" alt="Proof" style="max-width:100%;border-radius:8px;border:1px solid var(--border-subtle);"/>
+      <p id="proofNote" style="margin-top:1rem;font-size:.85rem;color:var(--text-secondary);"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Reject modal -->
+<div class="modal" id="rejectModal">
+  <div class="modal__box" style="max-width:420px;">
+    <div class="modal__header">
+      <h3 class="modal__title" style="color:var(--error);">Reject Submission</h3>
+      <button class="modal__close" onclick="closeModal('rejectModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal__body">
+      <div class="form-group">
+        <label class="form-label">Reason</label>
+        <select id="rejectReason" class="form-control" style="margin-bottom:.75rem;">
+          <option value="">Select reason…</option>
+          <option value="Screenshot unclear or incomplete">Screenshot unclear or incomplete</option>
+          <option value="Task not actually completed">Task not actually completed</option>
+          <option value="Wrong screenshot uploaded">Wrong screenshot uploaded</option>
+          <option value="Account not followed/joined as required">Account not followed/joined as required</option>
+          <option value="Duplicate submission">Duplicate submission</option>
+        </select>
+        <textarea id="rejectNote" class="form-control" rows="3" placeholder="Extra detail (optional)…" style="resize:vertical;"></textarea>
+      </div>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn-secondary" onclick="closeModal('rejectModal')">Cancel</button>
+      <button class="btn btn-danger" id="confirmRejectBtn">Confirm Reject</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="../js/supabase-config.js"></script>
+<script src="../js/main.js"></script>
+<script>
+let _all = [], _rejectId = null;
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const auth = await requireAdmin();
+  if (!auth) return;
+  document.getElementById("adminName").textContent = auth.profile?.full_name || "Admin";
+  await load();
+});
+
+async function load() {
+  const sb = getSupabase();
+  const { data, error } = await sb.from("task_submissions")
+    .select("*, profiles(full_name,email)")
+    .order("submitted_at",{ascending:false});
+
+  if (error) {
+    document.getElementById("subBody").innerHTML = `<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--error);">${error.message}<br><small>Run supabase-fix.sql if table missing.</small></td></tr>`;
+    document.getElementById("subStats").innerHTML = "";
+    document.getElementById("subSummary").textContent = "Table not found — run supabase-fix.sql";
+    return;
+  }
+  _all = data || [];
+
+  const pend = _all.filter(s=>s.status==="pending");
+  const appv = _all.filter(s=>s.status==="approved");
+  document.getElementById("subSummary").textContent = `${_all.length} total · ${pend.length} pending review`;
+  document.getElementById("subStats").innerHTML = `
+    <div class="stat-card" style="${pend.length>0?'border-color:rgba(239,68,68,.3);':''}">
+      <div class="stat-card__label">Pending Review</div>
+      <div class="stat-card__value" style="${pend.length>0?'color:var(--error);':''}">${pend.length}</div>
+      <div class="stat-card__sub">Need your action</div>
+    </div>
+    <div class="stat-card stat-card--gold">
+      <div class="stat-card__label">Approved</div>
+      <div class="stat-card__value">${appv.length}</div>
+      <div class="stat-card__sub">${formatNaira(appv.reduce((s,r)=>s+r.reward,0))} paid</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-card__label">Total</div>
+      <div class="stat-card__value">${_all.length}</div>
+      <div class="stat-card__sub">All submissions</div>
+    </div>`;
+  filterRender();
+}
+
+function filterRender() {
+  const f = document.getElementById("statusFilter").value;
+  const list = f==="all" ? _all : _all.filter(s=>s.status===f);
+  const bm = {pending:"badge-gold",approved:"badge-success",rejected:"badge-error"};
+  document.getElementById("subBody").innerHTML = list.map(s=>`
+    <tr>
+      <td><div style="font-weight:600;font-size:.875rem;">${s.profiles?.full_name||"Unknown"}</div><div style="font-size:.73rem;color:var(--text-muted);">${s.profiles?.email||"—"}</div></td>
+      <td style="font-size:.85rem;max-width:160px;font-weight:600;">${s.task_title||s.task_id}</td>
+      <td><strong style="color:var(--gold-500);">${formatNaira(s.reward)}</strong></td>
+      <td>${s.proof_url?`<img src="${s.proof_url}" class="proof-thumb" onclick="viewProof('${s.id}')" title="Click to enlarge" onerror="this.replaceWith(document.createTextNode('No image'))"/>`:`<span style="font-size:.78rem;color:var(--text-muted);">None</span>`}</td>
+      <td style="font-size:.8rem;color:var(--text-secondary);max-width:120px;">${s.note||"—"}</td>
+      <td style="font-size:.78rem;color:var(--text-muted);">${s.submitted_at?new Date(s.submitted_at).toLocaleDateString("en-NG"):"—"}</td>
+      <td><span class="badge ${bm[s.status]||"badge-muted"}">${s.status}</span>${s.admin_note?`<div style="font-size:.7rem;color:var(--text-muted);margin-top:3px;">${s.admin_note}</div>`:""}</td>
+      <td>${s.status==="pending"?`<div style="display:flex;gap:.4rem;">
+        <button class="btn btn-sm" style="background:var(--success-bg);color:var(--success);border:1px solid rgba(34,197,94,.3);" onclick="approve('${s.id}')">✓</button>
+        <button class="btn btn-danger btn-sm" onclick="openReject('${s.id}')">✗</button>
+      </div>`:`<span style="font-size:.78rem;color:var(--text-muted);">—</span>`}</td>
+    </tr>`).join("") || `<tr><td colspan="8" style="text-align:center;padding:3rem;color:var(--text-muted);">No submissions found.</td></tr>`;
+}
+
+document.getElementById("statusFilter").addEventListener("change", filterRender);
+
+function viewProof(id) {
+  const s = _all.find(x=>x.id===id); if(!s) return;
+  document.getElementById("proofImg").src = s.proof_url;
+  document.getElementById("proofNote").textContent = s.note ? `User note: "${s.note}"` : "";
+  openModal("proofModal");
+}
+initModalCloseOnBackdrop("proofModal");
+
+function openReject(id) { _rejectId=id; document.getElementById("rejectReason").value=""; document.getElementById("rejectNote").value=""; openModal("rejectModal"); }
+initModalCloseOnBackdrop("rejectModal");
+
+document.getElementById("confirmRejectBtn").addEventListener("click", async () => {
+  const reason = document.getElementById("rejectReason").value;
+  if (!reason) { showToast("Select a reason.","warning"); return; }
+  await process(_rejectId, "rejected", reason + (document.getElementById("rejectNote").value.trim() ? ": "+document.getElementById("rejectNote").value.trim() : ""));
+  closeModal("rejectModal");
+});
+
+async function approve(id) {
+  if (!confirm("Approve this task and credit reward to wallet?")) return;
+  await process(id, "approved", null);
+}
+
+async function process(id, status, adminNote) {
+  const sb  = getSupabase();
+  const sub = _all.find(s=>s.id===id); if (!sub) return;
+
+  // 1 — Update submission status
+  const { error: subErr } = await sb
+    .from("task_submissions")
+    .update({ status, admin_note: adminNote||null, reviewed_at: new Date().toISOString() })
+    .eq("id", id);
+
+  if (subErr) {
+    if (subErr.code === "42501" || subErr.message?.includes("RLS") || subErr.message?.includes("policy")) {
+      showToast("❌ RLS Error — run supabase-admin-rls.sql in Supabase SQL Editor to fix admin permissions.", "error", 8000);
+    } else {
+      showToast("Failed to update submission: " + subErr.message, "error");
+    }
+    return;
+  }
+
+  // 2 — If approved, credit wallet
+  if (status === "approved") {
+    const { data: p, error: pErr } = await sb
+      .from("profiles")
+      .select("balance, tasks_completed")
+      .eq("id", sub.user_id)
+      .maybeSingle();
+
+    if (pErr) {
+      showToast("Submission approved but wallet credit failed: " + pErr.message, "warning");
+    } else if (p) {
+      const { error: bErr } = await sb
+        .from("profiles")
+        .update({
+          balance:         (p.balance || 0) + sub.reward,
+          tasks_completed: (p.tasks_completed || 0) + 1,
+          updated_at:      new Date().toISOString(),
+        })
+        .eq("id", sub.user_id);
+      if (bErr) {
+        showToast("Submission approved but wallet update failed: " + bErr.message, "warning");
+      }
+    }
+  }
+
+  // 3 — Update local state so it persists without re-fetching
+  const i = _all.findIndex(s => s.id === id);
+  if (i > -1) {
+    _all[i].status     = status;
+    _all[i].admin_note = adminNote;
+    _all[i].reviewed_at = new Date().toISOString();
+  }
+
+  filterRender();
+  showToast(
+    status === "approved"
+      ? `✅ Approved! ${formatNaira(sub.reward)} credited to user's wallet.`
+      : "❌ Submission rejected and user notified.",
+    status === "approved" ? "success" : "info"
+  );
+}
+</script>
+</body>
+</html>
