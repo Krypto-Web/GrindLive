@@ -708,15 +708,23 @@ function openTaskModal(task) {
   // Link
   const linkWrap = document.getElementById('modalLinkWrap');
   const linkEl   = document.getElementById('modalLink');
-  if (task.link) {
-    linkWrap.style.display = '';
+  // Always show the link section - if no link, show a clear message
+  linkWrap.style.display = '';
+  if (task.link && task.link.trim() && task.link.trim() !== '#') {
     linkEl.href = task.link;
-    linkEl.textContent = ''; // rebuild
+    linkEl.style.pointerEvents = '';
+    linkEl.style.opacity = '';
     linkEl.innerHTML = `
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       Open Task Link &rarr;`;
   } else {
-    linkWrap.style.display = 'none';
+    // No link set by admin yet
+    linkEl.removeAttribute('href');
+    linkEl.style.pointerEvents = 'none';
+    linkEl.style.opacity = '0.5';
+    linkEl.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Link coming soon — check back later`;
   }
 
   // Reset proof
@@ -768,18 +776,35 @@ function handleProofFile(e) {
 }
 
 function processProofFile(file) {
-  if (!file.type.startsWith('image/')) { showToast('Please upload an image file (PNG, JPG, WEBP).', 'warning'); return; }
-  if (file.size > 5 * 1024 * 1024)    { showToast('Image too large. Maximum file size is 5 MB.', 'warning');  return; }
+  if (!file.type.startsWith('image/')) {
+    showToast('Please upload an image file (PNG, JPG, WEBP).', 'warning'); return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('Image too large. Max 5 MB. Try a screenshot crop.', 'warning'); return;
+  }
+
+  _proofBase64 = null; // reset while loading
+  document.getElementById('modalSubmit').disabled = true;
 
   const reader = new FileReader();
-  reader.onload = e => {
+
+  reader.onload  = function(e) {
     _proofBase64 = e.target.result;
+    if (!_proofBase64 || !_proofBase64.startsWith('data:')) {
+      showToast('Could not read file. Try a different image.', 'error'); return;
+    }
     document.getElementById('proofPreviewImg').src = _proofBase64;
     document.getElementById('proofPreviewWrap').style.display = '';
     document.getElementById('proofUpload').style.display = 'none';
     document.getElementById('modalSubmit').disabled = false;
-    showToast('Screenshot added. Ready to submit!', 'success', 2000);
+    showToast('Screenshot ready ✓', 'success', 2000);
   };
+
+  reader.onerror = function() {
+    showToast('Failed to read the file. Please try a different image.', 'error');
+    _proofBase64 = null;
+  };
+
   reader.readAsDataURL(file);
 }
 
@@ -793,9 +818,22 @@ document.getElementById('proofRemove').addEventListener('click', () => {
 
 /* ── Submit task for admin review ───────────────────────────── */
 document.getElementById('modalSubmit').addEventListener('click', async () => {
-  if (!_activeTask)   { showToast('No task selected. Please try again.', 'warning'); return; }
-  if (!_proofBase64)  { showToast('Please upload a screenshot first.', 'warning'); return; }
-  if (!_user)         { showToast('Session expired. Please refresh and log in again.', 'error'); return; }
+  if (!_activeTask) {
+    showToast('No task selected. Close this and click Start Task again.', 'warning'); return;
+  }
+  if (!_proofBase64 || !_proofBase64.startsWith('data:')) {
+    // Check if file was selected but FileReader hasn't finished yet
+    const fileInput = document.getElementById('proofFile');
+    if (fileInput.files && fileInput.files[0]) {
+      showToast('Screenshot is still loading — please wait a moment and try again.', 'warning');
+    } else {
+      showToast('Please upload a screenshot of the completed task first.', 'warning');
+    }
+    return;
+  }
+  if (!_user) {
+    showToast('Your session expired. Please refresh the page and log in again.', 'error'); return;
+  }
 
   const btn  = document.getElementById('modalSubmit');
   const note = document.getElementById('submissionNote').value.trim();
