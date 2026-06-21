@@ -9,35 +9,45 @@
     .admin-sidebar .sidebar__link.active{color:var(--error);background:var(--error-bg);}
     .admin-sidebar .sidebar__link.active::before{background:var(--error);}
 
-    /* Task cards grid */
-    .task-admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;}
-    .task-admin-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s,transform .2s;}
-    .task-admin-card:hover{border-color:var(--border-gold);transform:translateY(-2px);}
-    .task-admin-card.disabled{opacity:.5;}
-    .tac-header{display:flex;align-items:center;gap:.85rem;padding:1rem 1.25rem;background:var(--bg-elevated);border-bottom:1px solid var(--border-subtle);}
-    .tac-icon{width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
-    .tac-title{font-weight:700;font-size:.9rem;color:var(--text-primary);flex:1;}
-    .tac-body{padding:1rem 1.25rem;display:flex;flex-direction:column;gap:.6rem;}
-    .tac-row{display:flex;justify-content:space-between;font-size:.82rem;}
-    .tac-row span:first-child{color:var(--text-muted);}
-    .tac-row span:last-child{font-weight:600;color:var(--text-primary);}
-    .tac-footer{padding:.85rem 1.25rem;border-top:1px solid var(--border-subtle);display:flex;gap:.6rem;}
+    /* ── Task cards — same look as user tasks page ── */
+    .tasks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.25rem;}
+    .task-card{display:flex;flex-direction:column;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all .25s;}
+    .task-card:hover{border-color:var(--border-gold);transform:translateY(-3px);box-shadow:var(--shadow-gold);}
+    .task-card.disabled{opacity:.5;}
+    .tc-top{padding:1.1rem 1.25rem .75rem;background:var(--bg-elevated);border-bottom:1px solid var(--border-subtle);display:flex;align-items:flex-start;gap:.85rem;}
+    .tc-icon{width:46px;height:46px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+    .tc-meta{flex:1;min-width:0;}
+    .tc-title{font-weight:700;font-size:.95rem;color:var(--text-primary);margin-bottom:.25rem;line-height:1.3;}
+    .tc-desc{font-size:.8rem;color:var(--text-secondary);line-height:1.5;}
+    .tc-body{padding:1rem 1.25rem;flex:1;display:flex;flex-direction:column;gap:.6rem;}
+    .tc-steps{background:var(--bg-elevated);border-radius:var(--radius-md);padding:.75rem 1rem;}
+    .tc-steps-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.5rem;}
+    .tc-step{display:flex;align-items:flex-start;gap:.5rem;font-size:.8rem;color:var(--text-secondary);margin-bottom:.3rem;line-height:1.4;}
+    .tc-step:last-child{margin-bottom:0;}
+    .tc-step-num{width:18px;height:18px;border-radius:50%;background:rgba(245,158,11,.15);color:var(--gold-500);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:1px;}
+    .tc-footer{padding:.85rem 1.25rem;border-top:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;gap:.75rem;}
+    .tc-reward{font-family:var(--font-display);font-size:1.15rem;font-weight:800;color:var(--gold-500);}
+    .tc-time{font-size:.75rem;color:var(--text-muted);}
 
-    /* Step list in modal */
+    /* Step editor */
     .step-list{display:flex;flex-direction:column;gap:.5rem;}
     .step-item{display:flex;align-items:center;gap:.6rem;background:var(--bg-elevated);border:1px solid var(--border-subtle);border-radius:var(--radius-md);padding:.6rem .85rem;}
     .step-item input{flex:1;background:transparent;border:none;color:var(--text-primary);font-size:.875rem;outline:none;}
     .step-num{width:22px;height:22px;border-radius:50%;background:rgba(245,158,11,.15);color:var(--gold-500);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;}
-    .step-del{color:var(--text-muted);cursor:pointer;padding:2px 5px;border-radius:4px;transition:color .15s;font-size:1rem;background:none;border:none;}
+    .step-del{color:var(--text-muted);cursor:pointer;font-size:1rem;background:none;border:none;padding:2px 6px;border-radius:4px;transition:color .15s;}
     .step-del:hover{color:var(--error);}
 
-    /* Toggle switch */
+    /* Toggle */
     .toggle{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0;}
     .toggle input{opacity:0;width:0;height:0;}
     .slider{position:absolute;inset:0;background:var(--bg-hover);border:1px solid var(--border-default);border-radius:12px;cursor:pointer;transition:.25s;}
     .slider::before{content:"";position:absolute;width:18px;height:18px;left:2px;top:2px;background:var(--text-muted);border-radius:50%;transition:.25s;}
     .toggle input:checked+.slider{background:rgba(34,197,94,.2);border-color:var(--success);}
     .toggle input:checked+.slider::before{background:var(--success);transform:translateX(20px);}
+
+    .filter-btn{padding:.42rem .95rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .15s;}
+    .filter-btn:hover{border-color:var(--gold-500);color:var(--gold-500);}
+    .filter-btn.active{background:var(--gold-gradient);color:#000;border-color:transparent;}
   </style>
 </head>
 <body style="visibility:hidden">
@@ -59,39 +69,27 @@
   <aside class="sidebar admin-sidebar">
     <nav class="sidebar__nav">
       <span class="sidebar__label">Overview</span>
+      <a href="index.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
       <a href="analytics.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a>
       <a href="fraud.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Fraud Detection</a>
-      <a href="index.html" class="sidebar__link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard
-      </a>
       <span class="sidebar__label">Manage</span>
-      <a href="users.html" class="sidebar__link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>All Users
-      </a>
-      <a href="task-submissions.html" class="sidebar__link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Task Submissions
-      </a>
-      <a href="withdrawals.html" class="sidebar__link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Withdrawals
-      </a>
-      <a href="tasks-admin.html" class="sidebar__link active">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>Task Manager
-      </a>
-      <a href="announcements.html" class="sidebar__link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 000 6h20V17z"/><path d="M22 17V3l-4 4H2v10h20z"/></svg>Announcements
-      </a>
-      <a href="settings.html" class="sidebar__link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>Settings
-      </a>
+      <a href="users.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>All Users</a>
+      <a href="task-submissions.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>Task Submissions</a>
+      <a href="withdrawals.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Withdrawals</a>
+      <a href="tasks-admin.html" class="sidebar__link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>Task Manager</a>
+      <a href="announcements.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 000 6h20V17z"/></svg>Announcements</a>
+      <a href="settings.html" class="sidebar__link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>Settings</a>
     </nav>
   </aside>
 
   <main class="main-content">
+    <!-- DB status banner -->
     <div id="dbStatusBanner"></div>
+
     <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
       <div>
         <h1 class="page-title">Task Manager</h1>
-        <p class="page-subtitle" id="taskCount">Loading tasks…</p>
+        <p class="page-subtitle" id="taskCount">Loading…</p>
       </div>
       <button class="btn btn-primary" id="addTaskBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:15px;height:15px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -109,41 +107,43 @@
       <button class="filter-btn" data-cat="review">✍️ Review</button>
     </div>
 
-    <div class="task-admin-grid" id="taskGrid"></div>
+    <div class="tasks-grid" id="taskGrid"></div>
   </main>
 </div>
 
-<!-- ── Add / Edit Task Modal ── -->
+<!-- ── Add / Edit Modal ── -->
 <div class="modal" id="taskModal">
-  <div class="modal__box" style="max-width:580px;max-height:90vh;overflow-y:auto;">
-    <div class="modal__header" style="position:sticky;top:0;z-index:10;background:var(--bg-elevated);">
+  <div class="modal__box" style="max-width:580px;max-height:92vh;display:flex;flex-direction:column;">
+    <div class="modal__header" style="flex-shrink:0;">
       <h3 class="modal__title" id="modalHeading">Add New Task</h3>
       <button class="modal__close" id="modalClose">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
 
-    <div class="modal__body" style="display:flex;flex-direction:column;gap:1.1rem;">
+    <div class="modal__body" style="overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:1.1rem;">
 
-      <!-- Row 1: Icon + Title -->
-      <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;align-items:start;">
+      <!-- Icon + Title -->
+      <div style="display:grid;grid-template-columns:80px 1fr;gap:.75rem;">
         <div class="form-group">
           <label class="form-label">Icon</label>
-          <input type="text" id="fIcon" class="form-control" placeholder="📱" maxlength="2" style="font-size:1.5rem;text-align:center;padding:.5rem;"/>
+          <input type="text" id="fIcon" class="form-control" placeholder="📱" maxlength="2"
+            style="font-size:1.5rem;text-align:center;padding:.5rem;"/>
         </div>
         <div class="form-group">
           <label class="form-label">Task Title <span style="color:var(--error);">*</span></label>
-          <input type="text" id="fTitle" class="form-control" placeholder="e.g. Follow Instagram Page"/>
+          <input type="text" id="fTitle" class="form-control" placeholder="e.g. Follow our Instagram Page"/>
         </div>
       </div>
 
       <!-- Description -->
       <div class="form-group">
-        <label class="form-label">Description <span style="color:var(--error);">*</span></label>
-        <textarea id="fDesc" class="form-control" rows="2" placeholder="Brief task description shown on the task card…" style="resize:vertical;"></textarea>
+        <label class="form-label">Short Description <span style="color:var(--error);">*</span></label>
+        <textarea id="fDesc" class="form-control" rows="2"
+          placeholder="What the user needs to do — shown on the task card…" style="resize:vertical;"></textarea>
       </div>
 
-      <!-- Row 2: Category + Reward + Duration -->
+      <!-- Category + Reward + Duration -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.75rem;">
         <div class="form-group">
           <label class="form-label">Category <span style="color:var(--error);">*</span></label>
@@ -160,43 +160,50 @@
           <input type="number" id="fReward" class="form-control" placeholder="250" min="1" step="1"/>
         </div>
         <div class="form-group">
-          <label class="form-label">Duration</label>
+          <label class="form-label">Est. Duration</label>
           <input type="text" id="fDuration" class="form-control" placeholder="2 min"/>
         </div>
       </div>
 
-      <!-- Task Link -->
+      <!-- Task Link — this is what shows in the user's modal -->
       <div class="form-group">
-        <label class="form-label">Task Link <span style="color:var(--text-muted);font-weight:400;">(URL user opens to complete task)</span></label>
-        <input type="url" id="fLink" class="form-control" placeholder="https://instagram.com/yourbrand"/>
+        <label class="form-label">
+          Task Link <span style="color:var(--error);">*</span>
+          <span style="color:var(--text-muted);font-weight:400;font-size:.76rem;"> — exact URL user opens to complete the task</span>
+        </label>
+        <input type="url" id="fLink" class="form-control"
+          placeholder="https://instagram.com/yourpage or https://forms.gle/yourform"/>
+        <span class="form-hint">This is the clickable link that appears in the task instructions. Users won't be paid without completing what's at this link.</span>
       </div>
 
       <!-- Step-by-step instructions -->
       <div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.65rem;">
-          <label class="form-label" style="margin:0;">Step-by-Step Instructions <span style="color:var(--error);">*</span></label>
+          <label class="form-label" style="margin:0;">
+            Step-by-Step Instructions <span style="color:var(--error);">*</span>
+            <span style="color:var(--text-muted);font-weight:400;font-size:.76rem;"> (min 2)</span>
+          </label>
           <button type="button" class="btn btn-secondary btn-sm" id="addStepBtn">+ Add Step</button>
         </div>
         <div class="step-list" id="stepList"></div>
-        <p style="font-size:.75rem;color:var(--text-muted);margin-top:.5rem;">Minimum 2 steps. These appear in the task modal users see.</p>
       </div>
 
       <!-- Active toggle -->
       <div style="display:flex;align-items:center;justify-content:space-between;padding:1rem;background:var(--bg-elevated);border-radius:var(--radius-md);border:1px solid var(--border-subtle);">
         <div>
-          <div style="font-weight:600;font-size:.9rem;">Task Active</div>
-          <div style="font-size:.78rem;color:var(--text-muted);">When off, task is hidden from users.</div>
+          <div style="font-weight:600;font-size:.9rem;">Published (visible to users)</div>
+          <div style="font-size:.78rem;color:var(--text-muted);">Turn off to hide this task without deleting it.</div>
         </div>
         <label class="toggle"><input type="checkbox" id="fActive" checked/><span class="slider"></span></label>
       </div>
 
     </div>
 
-    <div class="modal__footer" style="position:sticky;bottom:0;z-index:10;background:var(--bg-elevated);">
+    <div class="modal__footer" style="flex-shrink:0;">
       <button class="btn btn-secondary" id="modalCancel">Cancel</button>
       <button class="btn btn-danger btn-sm" id="deleteTaskBtn" style="display:none;margin-right:auto;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
-        Delete Task
+        Delete
       </button>
       <button class="btn btn-primary" id="saveTaskBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
@@ -206,17 +213,18 @@
   </div>
 </div>
 
-<!-- Delete confirm modal -->
+<!-- Delete confirm -->
 <div class="modal" id="deleteModal">
   <div class="modal__box" style="max-width:400px;">
     <div class="modal__header">
       <h3 class="modal__title" style="color:var(--error);">Delete Task</h3>
-      <button class="modal__close" onclick="closeModal('deleteModal')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <button class="modal__close" onclick="closeModal('deleteModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="modal__body">
-      <p style="color:var(--text-secondary);line-height:1.7;">Are you sure you want to permanently delete <strong id="deleteTaskName" style="color:var(--text-primary);"></strong>? This cannot be undone.</p>
+      <p style="color:var(--text-secondary);line-height:1.7;">
+        Permanently delete <strong id="deleteTaskName" style="color:var(--text-primary);"></strong>?
+        This cannot be undone. Existing submissions won't be affected.
+      </p>
     </div>
     <div class="modal__footer">
       <button class="btn btn-secondary" onclick="closeModal('deleteModal')">Cancel</button>
@@ -225,309 +233,278 @@
   </div>
 </div>
 
-<style>
-  .filter-btn{padding:.42rem .95rem;border-radius:var(--radius-full);font-size:.8rem;font-weight:600;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .15s;}
-  .filter-btn:hover{border-color:var(--gold-500);color:var(--gold-500);}
-  .filter-btn.active{background:var(--gold-gradient);color:#000;border-color:transparent;box-shadow:var(--shadow-gold);}
-</style>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="../js/supabase-config.js"></script>
 <script src="../js/main.js"></script>
 <script>
-/* ── Default tasks (shown when DB table is empty / not set up) ── */
+
+/* ── Default tasks (fallback if DB not set up) ── */
 const DEFAULT_TASKS = [
-  { id:"task_001", icon:"📱", title:"Follow Instagram Business Page",   description:"Follow a Nigerian brand's Instagram page and stay for 7 days.",                  category:"social",  reward:250, duration:"2 min", link:"https://instagram.com",      is_active:true, instructions:["Open the Instagram link below","Click Follow on the page","Take a screenshot showing you are following","Upload screenshot as proof"] },
-  { id:"task_002", icon:"🎬", title:"Watch & Rate Ad Video",             description:"Watch a 60-second product ad on YouTube and give it a thumbs up.",                 category:"video",   reward:180, duration:"3 min", link:"https://youtube.com",         is_active:true, instructions:["Open the YouTube link below","Watch the full video — do not skip","Click Like (thumbs up)","Screenshot the video with your like and upload"] },
-  { id:"task_003", icon:"📊", title:"Complete Market Survey",            description:"Answer 10 quick questions about your shopping habits.",                             category:"survey",  reward:500, duration:"5 min", link:"https://forms.google.com",     is_active:true, instructions:["Open the survey link below","Answer all 10 questions honestly","Submit the form","Screenshot the thank-you confirmation and upload"] },
-  { id:"task_004", icon:"📘", title:"Like & Share Facebook Post",        description:"Like a Facebook post, share it, and leave a genuine comment.",                     category:"social",  reward:150, duration:"2 min", link:"https://facebook.com",        is_active:true, instructions:["Open the Facebook post link","Click Like","Share to your timeline","Leave a genuine comment and upload screenshot"] },
-  { id:"task_005", icon:"⭐", title:"Rate Mobile App on Play Store",     description:"Download a free app and rate it 5 stars with a short review.",                    category:"app",     reward:350, duration:"4 min", link:"https://play.google.com",      is_active:true, instructions:["Download the app from the link","Use it for 1 minute","Rate 5 stars on Play Store","Write a 10+ word review and screenshot it"] },
-  { id:"task_006", icon:"📢", title:"Join Telegram Channel",             description:"Join a Telegram channel and remain a member for 30 days.",                         category:"social",  reward:300, duration:"1 min", link:"https://t.me",                 is_active:true, instructions:["Click the Telegram link below","Tap Join Channel","Do NOT leave within 30 days","Screenshot your membership and upload"] },
-  { id:"task_007", icon:"✍️", title:"Write Product Review on Jumia",    description:"Write an honest 50-word review for a Nigerian product on Jumia.",                  category:"review",  reward:400, duration:"6 min", link:"https://jumia.com.ng",         is_active:true, instructions:["Open the Jumia product link","Click Write a Review","Write at least 50 honest words","Screenshot your published review and upload"] },
-  { id:"task_008", icon:"🎵", title:"Stream Song on Spotify",            description:"Play a specified song on Spotify for at least 30 seconds.",                        category:"video",   reward:120, duration:"1 min", link:"https://open.spotify.com",     is_active:true, instructions:["Open Spotify","Search for the song via the link","Play for at least 30 seconds","Screenshot the song playing and upload"] },
-  { id:"task_009", icon:"📲", title:"Sign Up on Partner Platform",       description:"Create a free account on a partner fintech or e-commerce platform.",               category:"app",     reward:600, duration:"5 min", link:"https://grindpoint.ng",        is_active:true, instructions:["Open the partner signup link","Register with your real name and email","Verify your email if required","Screenshot your completed profile and upload"] },
-  { id:"task_010", icon:"🗳️", title:"Nigerian Governance Opinion Poll",  description:"Answer 5 questions about your views on Nigerian infrastructure.",                  category:"survey",  reward:220, duration:"3 min", link:"https://forms.google.com",     is_active:true, instructions:["Open the poll link below","Answer all 5 questions","Click Submit","Screenshot the confirmation screen and upload"] },
-  { id:"task_011", icon:"🐦", title:"Follow & Retweet on Twitter/X",    description:"Follow a brand's X account and retweet their pinned post.",                       category:"social",  reward:200, duration:"2 min", link:"https://x.com",                is_active:true, instructions:["Open the Twitter/X profile link","Click Follow","Retweet the pinned post","Screenshot showing follow + retweet and upload"] },
-  { id:"task_012", icon:"🏪", title:"Google Maps Business Review",       description:"Leave a 5-star Google Maps review for a local Nigerian business.",                 category:"review",  reward:380, duration:"4 min", link:"https://maps.google.com",      is_active:true, instructions:["Open the Google Maps link below","Click Write a Review","Give 5 stars and write 15+ words","Screenshot your published review and upload"] },
+  { id:'task_001', category:'social', icon:'📱', title:'Follow Instagram Business Page', description:"Follow a Nigerian brand's Instagram page and stay followed for at least 7 days.", reward:250, duration:'2 min', link:'https://instagram.com', is_active:true, instructions:['Open the Instagram link below','Log in to your Instagram account','Click the Follow button','Take a screenshot clearly showing you are following','Upload the screenshot below'] },
+  { id:'task_002', category:'video',  icon:'🎬', title:'Watch & Rate Ad Video', description:"Watch a 60-second product advertisement on YouTube and give it a thumbs up.", reward:180, duration:'3 min', link:'https://youtube.com', is_active:true, instructions:['Open the YouTube link below','Watch the full video — do not skip','Click Like (thumbs up) on the video','Screenshot the video with your like visible','Upload the screenshot below'] },
+  { id:'task_003', category:'survey', icon:'📊', title:'Complete Market Survey', description:"Answer 10 quick questions about your shopping habits.", reward:500, duration:'5 min', link:'https://forms.google.com', is_active:true, instructions:['Open the survey link below','Answer all 10 questions honestly','Submit the form at the end','Screenshot the "Thank you" confirmation page','Upload the screenshot below'] },
+  { id:'task_004', category:'social', icon:'📘', title:'Like & Share Facebook Post', description:"Like a Facebook post, share to your timeline, and leave a genuine comment.", reward:150, duration:'2 min', link:'https://facebook.com', is_active:true, instructions:['Open the Facebook post link below','Click Like on the post','Share it to your own timeline','Leave a genuine comment (5+ words)','Screenshot your comment visible and upload'] },
+  { id:'task_005', category:'app',    icon:'⭐', title:'Rate Mobile App on Play Store', description:"Download a free app, use it for 1 minute, then give it 5 stars.", reward:350, duration:'4 min', link:'https://play.google.com', is_active:true, instructions:['Open Play Store link below','Download and open the app','Use it for at least 1 minute','Rate 5 stars and write a 10+ word review','Screenshot your published review and upload'] },
+  { id:'task_006', category:'social', icon:'📢', title:'Join Telegram Channel', description:"Join a Telegram channel and remain a member for at least 30 days.", reward:300, duration:'1 min', link:'https://t.me', is_active:true, instructions:['Open the Telegram link below','Tap Join Channel','Do NOT leave within 30 days','Screenshot your membership with channel name visible','Upload the screenshot below'] },
+  { id:'task_007', category:'review', icon:'✍️', title:'Write Product Review on Jumia', description:"Write an honest 50-word review for a Nigerian product on Jumia.", reward:400, duration:'6 min', link:'https://jumia.com.ng', is_active:true, instructions:['Open the Jumia product link below','Click Write a Review','Write at least 50 honest words','Submit your review','Screenshot your published review showing your username'] },
+  { id:'task_008', category:'video',  icon:'🎵', title:'Stream Song on Spotify', description:"Play a specified song on Spotify for at least 30 seconds.", reward:120, duration:'1 min', link:'https://open.spotify.com', is_active:true, instructions:['Open Spotify (app or web)','Find the song via the link below','Play it for at least 30 seconds','Screenshot the song playing with your profile name visible','Upload the screenshot below'] },
+  { id:'task_009', category:'app',    icon:'📲', title:'Sign Up on Partner Platform', description:"Create a free account on a partner fintech or e-commerce platform.", reward:600, duration:'5 min', link:'https://grindpoint.ng', is_active:true, instructions:['Open the partner signup link below','Register with your real name and email','Verify your email if required','Screenshot your completed profile or dashboard','Upload the screenshot below'] },
+  { id:'task_010', category:'survey', icon:'🗳️', title:'Nigerian Governance Opinion Poll', description:"Answer 5 questions about your views on Nigerian infrastructure.", reward:220, duration:'3 min', link:'https://forms.google.com', is_active:true, instructions:['Open the poll link below','Answer all 5 questions truthfully','Click Submit','Screenshot the confirmation or thank-you screen','Upload the screenshot below'] },
+  { id:'task_011', category:'social', icon:'🐦', title:'Follow & Retweet on Twitter/X', description:"Follow a brand's X account and retweet their pinned post.", reward:200, duration:'2 min', link:'https://x.com', is_active:true, instructions:["Open the Twitter/X profile link below","Click Follow","Retweet the pinned post on their profile","Do not unfollow within 14 days","Screenshot showing you follow them and the retweet"] },
+  { id:'task_012', category:'review', icon:'🏪', title:'Google Maps Business Review', description:"Leave a 5-star Google Maps review for a local Nigerian business.", reward:380, duration:'4 min', link:'https://maps.google.com', is_active:true, instructions:['Open the Google Maps link below','Click Write a Review','Give 5 stars and write a genuine 15+ word comment','Screenshot your published review','Upload the screenshot below'] },
 ];
 
+const CAT_BG = { social:'rgba(59,130,246,.12)', video:'rgba(239,68,68,.12)', survey:'rgba(245,158,11,.12)', app:'rgba(34,197,94,.12)', review:'rgba(20,184,166,.12)' };
+
 /* ── State ── */
-let _tasks      = [];      // live working copy
-let _editingId  = null;    // null = new, string = editing existing
-let _usingDB    = false;   // whether DB tasks table is available
+let _tasks     = [];
+let _editingId = null;
+let _usingDB   = false;
+let _steps     = [];
 
 /* ── Boot ── */
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const auth = await requireAdmin();
   if (!auth) return;
-  document.getElementById("adminName").textContent = auth.profile?.full_name || "Admin";
+  document.getElementById('adminName').textContent = auth.profile?.full_name || 'Admin';
   await loadTasks();
 });
 
-/* ── Load tasks from DB, fallback to DEFAULT_TASKS ── */
+/* ── Load tasks from DB ── */
 async function loadTasks() {
   const sb = getSupabase();
   try {
-    const { data, error } = await sb.from("tasks").select("*").order("sort_order", { ascending: true });
+    const { data, error } = await sb.from('tasks').select('*').order('sort_order', { ascending:true });
     if (error) throw error;
     if (data && data.length > 0) {
-      _tasks    = data;
-      _usingDB  = true;
+      _tasks   = data;
+      _usingDB = true;
     } else {
-      // DB table empty — seed with defaults and save to DB
-      _tasks   = DEFAULT_TASKS.map((t, i) => ({ ...t, sort_order: i + 1 }));
-      _usingDB = false;
-      // Attempt to seed DB silently
-      await sb.from("tasks").upsert(_tasks.map(t => ({
-        id: t.id, title: t.title, description: t.description,
-        category: t.category, icon: t.icon, reward: t.reward,
-        duration: t.duration, link: t.link || null,
-        instructions: t.instructions,
-        is_active: t.is_active, sort_order: t.sort_order || 0,
-      }))).then(({ error: e }) => {
-        if (!e) { _usingDB = true; }
-      });
+      // Seed DB with defaults on first load
+      _tasks = DEFAULT_TASKS.map((t,i) => ({ ...t, sort_order:i+1 }));
+      const { error: seedErr } = await sb.from('tasks').upsert(_tasks);
+      if (!seedErr) { _usingDB = true; console.log('[Admin] Tasks seeded to DB'); }
+      else          { _usingDB = false; }
     }
-  } catch (e) {
-    console.warn("[Tasks] DB not available, using defaults:", e.message);
-    _tasks   = DEFAULT_TASKS.map((t, i) => ({ ...t, sort_order: i + 1 }));
+  } catch(e) {
+    console.warn('[Admin] DB unavailable:', e.message);
+    _tasks   = DEFAULT_TASKS.map((t,i) => ({ ...t, sort_order:i+1 }));
     _usingDB = false;
   }
-  renderGrid("all");
-  document.getElementById("taskCount").textContent =
-    `${_tasks.length} tasks · ${_tasks.filter(t => t.is_active).length} active` +
-    (_usingDB ? " · Synced with database" : " · Local only");
 
-  const banner = document.getElementById("dbStatusBanner");
-  if (!_usingDB) {
-    banner.innerHTML = `
-      <div style="display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.25rem;background:var(--error-bg);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius-md);margin-bottom:1.5rem;">
-        <span style="font-size:1.3rem;flex-shrink:0;">⚠️</span>
-        <div style="font-size:.85rem;line-height:1.6;">
-          <strong style="color:var(--error);display:block;margin-bottom:2px;">Database not connected — changes here will NOT save or show to users</strong>
-          <span style="color:var(--text-secondary);">Run <code style="background:var(--bg-hover);padding:1px 6px;border-radius:4px;">supabase-fix.sql</code> then <code style="background:var(--bg-hover);padding:1px 6px;border-radius:4px;">supabase-admin-rls.sql</code> in your Supabase SQL Editor, then refresh this page.</span>
-        </div>
-      </div>`;
-  } else {
-    banner.innerHTML = '';
-  }
+  showBanner();
+  renderGrid('all');
+  document.getElementById('taskCount').textContent =
+    `${_tasks.length} tasks · ${_tasks.filter(t=>t.is_active).length} active` +
+    (_usingDB ? ' · Live (database connected ✓)' : ' · Offline — run supabase-fix.sql');
+}
+
+function showBanner() {
+  document.getElementById('dbStatusBanner').innerHTML = _usingDB ? '' : `
+    <div style="display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.25rem;background:var(--error-bg);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius-md);margin-bottom:1.5rem;">
+      <span style="font-size:1.3rem;flex-shrink:0;">⚠️</span>
+      <div style="font-size:.85rem;line-height:1.6;">
+        <strong style="color:var(--error);display:block;margin-bottom:2px;">Database not connected — edits will NOT persist or show to users</strong>
+        <span style="color:var(--text-secondary);">Run <code style="background:var(--bg-hover);padding:1px 6px;border-radius:4px;">supabase-fix.sql</code> then <code style="background:var(--bg-hover);padding:1px 6px;border-radius:4px;">supabase-admin-rls.sql</code> in Supabase SQL Editor, then refresh.</span>
+      </div>
+    </div>`;
 }
 
 /* ── Render grid ── */
-const CAT_COLORS = {
-  social:  "rgba(59,130,246,.12)",
-  video:   "rgba(239,68,68,.12)",
-  survey:  "rgba(245,158,11,.12)",
-  app:     "rgba(34,197,94,.12)",
-  review:  "rgba(20,184,166,.12)",
-};
-
 function renderGrid(cat) {
-  const grid = document.getElementById("taskGrid");
-  const list = cat === "all" ? _tasks : _tasks.filter(t => t.category === cat);
+  const grid = document.getElementById('taskGrid');
+  const list = cat === 'all' ? _tasks : _tasks.filter(t => t.category === cat);
 
   if (!list.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-state__icon">🔍</div><div class="empty-state__title">No tasks in this category</div></div>`;
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-state__icon">📭</div><div class="empty-state__title">No tasks in this category</div></div>`;
     return;
   }
 
-  grid.innerHTML = list.map(t => `
-    <div class="task-admin-card ${t.is_active ? "" : "disabled"}" data-id="${t.id}">
-      <div class="tac-header">
-        <div class="tac-icon" style="background:${CAT_COLORS[t.category] || "var(--bg-hover)"};">${t.icon || "⚡"}</div>
-        <span class="tac-title">${t.title}</span>
-        <span class="badge ${t.is_active ? "badge-success" : "badge-muted"}" style="flex-shrink:0;">
-          ${t.is_active ? "Active" : "Disabled"}
-        </span>
-      </div>
-      <div class="tac-body">
-        <p style="font-size:.8rem;color:var(--text-secondary);line-height:1.5;margin:0 0 .25rem;">${t.description || ""}</p>
-        <div class="tac-row"><span>Category</span><span class="badge badge-muted" style="font-size:.65rem;">${t.category}</span></div>
-        <div class="tac-row"><span>Reward</span><span style="color:var(--gold-500);">${formatNaira(t.reward)}</span></div>
-        <div class="tac-row"><span>Duration</span><span>${t.duration || "—"}</span></div>
-        <div class="tac-row"><span>Steps</span><span>${Array.isArray(t.instructions) ? t.instructions.length : 0}</span></div>
-        ${t.link ? `<div class="tac-row"><span>Link</span><a href="${t.link}" target="_blank" style="color:var(--gold-500);font-size:.78rem;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${t.link}</a></div>` : ""}
-      </div>
-      <div class="tac-footer">
-        <button class="btn btn-primary btn-sm edit-btn" data-id="${t.id}" style="flex:1;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Edit
-        </button>
-        <button class="btn btn-sm toggle-btn ${t.is_active ? "btn-secondary" : ""}" data-id="${t.id}"
-          style="${t.is_active ? "" : "background:var(--success-bg);color:var(--success);border:1px solid rgba(34,197,94,.3);"}" >
-          ${t.is_active ? "Disable" : "Enable"}
-        </button>
-      </div>
-    </div>`).join("");
+  grid.innerHTML = list.map(task => {
+    const bg    = CAT_BG[task.category] || 'rgba(245,158,11,.1)';
+    const steps = Array.isArray(task.instructions) ? task.instructions : [];
+    const stepsHTML = steps.slice(0,3).map((s,i) =>
+      `<div class="tc-step"><span class="tc-step-num">${i+1}</span><span>${s}</span></div>`
+    ).join('') + (steps.length > 3 ? `<div class="tc-step" style="color:var(--text-muted);font-style:italic;">+${steps.length-3} more steps…</div>` : '');
 
-  // Wire edit buttons
-  grid.querySelectorAll(".edit-btn").forEach(btn =>
-    btn.addEventListener("click", () => openEditModal(_tasks.find(t => t.id === btn.dataset.id)))
+    return `
+      <div class="task-card ${task.is_active ? '' : 'disabled'}">
+        <div class="tc-top">
+          <div class="tc-icon" style="background:${bg};">${task.icon || '⚡'}</div>
+          <div class="tc-meta">
+            <div class="tc-title">${task.title}</div>
+            <div class="tc-desc">${task.description || ''}</div>
+          </div>
+          <span class="badge ${task.is_active ? 'badge-success' : 'badge-muted'}" style="flex-shrink:0;font-size:.65rem;">
+            ${task.is_active ? 'Live' : 'Hidden'}
+          </span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-steps">
+            <div class="tc-steps-label">Steps for user</div>
+            ${stepsHTML || '<span style="font-size:.78rem;color:var(--text-muted);">No steps defined yet</span>'}
+          </div>
+          ${task.link ? `<div style="font-size:.78rem;color:var(--text-muted);">🔗 ${task.link}</div>` : '<div style="font-size:.78rem;color:var(--error);">⚠️ No task link set</div>'}
+        </div>
+        <div class="tc-footer">
+          <div>
+            <div class="tc-reward">+${formatNaira(task.reward)}</div>
+            <div class="tc-time">${task.duration || '—'} &nbsp;·&nbsp; <span class="badge badge-muted" style="font-size:.6rem;">${task.category}</span></div>
+          </div>
+          <div style="display:flex;gap:.5rem;">
+            <button class="btn btn-primary btn-sm edit-btn" data-id="${task.id}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit
+            </button>
+            <button class="btn btn-sm toggle-btn" data-id="${task.id}"
+              style="${task.is_active ? 'border:1px solid var(--border-default);color:var(--text-secondary);' : 'background:var(--success-bg);color:var(--success);border:1px solid rgba(34,197,94,.3);'}">
+              ${task.is_active ? 'Hide' : 'Show'}
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  grid.querySelectorAll('.edit-btn').forEach(b =>
+    b.addEventListener('click', () => openEditModal(_tasks.find(t => t.id === b.dataset.id)))
   );
-
-  // Wire toggle buttons
-  grid.querySelectorAll(".toggle-btn").forEach(btn =>
-    btn.addEventListener("click", () => toggleActive(btn.dataset.id))
+  grid.querySelectorAll('.toggle-btn').forEach(b =>
+    b.addEventListener('click', () => toggleActive(b.dataset.id))
   );
 }
 
-/* ── Filter ── */
-document.querySelectorAll(".filter-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+/* ── Filters ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
     renderGrid(btn.dataset.cat);
   });
 });
 
-/* ── Open modal ── */
-function openAddModal() {
+/* ── Open modals ── */
+document.getElementById('addTaskBtn').addEventListener('click', () => {
   _editingId = null;
-  document.getElementById("modalHeading").textContent = "Add New Task";
-  document.getElementById("deleteTaskBtn").style.display = "none";
-  document.getElementById("fIcon").value     = "";
-  document.getElementById("fTitle").value    = "";
-  document.getElementById("fDesc").value     = "";
-  document.getElementById("fCategory").value = "social";
-  document.getElementById("fReward").value   = "";
-  document.getElementById("fDuration").value = "";
-  document.getElementById("fLink").value     = "";
-  document.getElementById("fActive").checked = true;
-  renderSteps(["", ""]);
-  openModal("taskModal");
-}
+  document.getElementById('modalHeading').textContent   = 'Add New Task';
+  document.getElementById('deleteTaskBtn').style.display = 'none';
+  document.getElementById('fIcon').value     = '';
+  document.getElementById('fTitle').value    = '';
+  document.getElementById('fDesc').value     = '';
+  document.getElementById('fCategory').value = 'social';
+  document.getElementById('fReward').value   = '';
+  document.getElementById('fDuration').value = '';
+  document.getElementById('fLink').value     = '';
+  document.getElementById('fActive').checked = true;
+  buildStepInputs(['', '']);
+  openModal('taskModal');
+});
 
 function openEditModal(task) {
   if (!task) return;
   _editingId = task.id;
-  document.getElementById("modalHeading").textContent = "Edit Task";
-  document.getElementById("deleteTaskBtn").style.display = "flex";
-  document.getElementById("fIcon").value     = task.icon     || "";
-  document.getElementById("fTitle").value    = task.title    || "";
-  document.getElementById("fDesc").value     = task.description || "";
-  document.getElementById("fCategory").value = task.category || "social";
-  document.getElementById("fReward").value   = task.reward   || "";
-  document.getElementById("fDuration").value = task.duration || "";
-  document.getElementById("fLink").value     = task.link     || "";
-  document.getElementById("fActive").checked = task.is_active !== false;
-
-  const steps = Array.isArray(task.instructions) && task.instructions.length > 0
-    ? task.instructions
-    : ["", ""];
-  renderSteps(steps);
-  openModal("taskModal");
+  document.getElementById('modalHeading').textContent   = 'Edit Task';
+  document.getElementById('deleteTaskBtn').style.display = 'flex';
+  document.getElementById('fIcon').value     = task.icon        || '';
+  document.getElementById('fTitle').value    = task.title       || '';
+  document.getElementById('fDesc').value     = task.description || '';
+  document.getElementById('fCategory').value = task.category    || 'social';
+  document.getElementById('fReward').value   = task.reward      || '';
+  document.getElementById('fDuration').value = task.duration    || '';
+  document.getElementById('fLink').value     = task.link        || '';
+  document.getElementById('fActive').checked = task.is_active !== false;
+  const steps = Array.isArray(task.instructions) && task.instructions.length >= 2
+    ? task.instructions : ['', ''];
+  buildStepInputs(steps);
+  openModal('taskModal');
 }
 
-document.getElementById("addTaskBtn").addEventListener("click", openAddModal);
-
-// Close modal
-document.getElementById("modalClose").addEventListener("click",  () => closeModal("taskModal"));
-document.getElementById("modalCancel").addEventListener("click", () => closeModal("taskModal"));
-document.getElementById("taskModal").addEventListener("click", e => {
-  if (e.target === document.getElementById("taskModal")) closeModal("taskModal");
-});
-
-/* ── Steps management ── */
-function renderSteps(steps) {
-  const list = document.getElementById("stepList");
-  list.innerHTML = steps.map((s, i) => `
-    <div class="step-item" data-index="${i}">
-      <span class="step-num">${i + 1}</span>
-      <input type="text" value="${s.replace(/"/g, '&quot;')}" placeholder="Step ${i + 1} instruction…" oninput="updateStep(${i}, this.value)"/>
-      <button class="step-del" onclick="removeStep(${i})" title="Remove step">✕</button>
-    </div>`).join("");
+/* ── Steps editor ── */
+function buildStepInputs(steps) {
+  _steps = [...steps];
+  const list = document.getElementById('stepList');
+  list.innerHTML = _steps.map((s, i) => `
+    <div class="step-item">
+      <span class="step-num">${i+1}</span>
+      <input type="text" value="${s.replace(/"/g,'&quot;')}" placeholder="Step ${i+1}…"
+        oninput="_steps[${i}]=this.value"/>
+      <button class="step-del" onclick="removeStep(${i})">✕</button>
+    </div>`).join('');
 }
 
-let _steps = [];
-function syncSteps() {
-  _steps = [...document.querySelectorAll(".step-item input")].map(i => i.value.trim());
-}
-function updateStep(i, val) {
-  syncSteps();
-  _steps[i] = val;
-}
 function removeStep(i) {
-  syncSteps();
-  if (_steps.length <= 2) { showToast("Minimum 2 steps required.", "warning"); return; }
+  if (_steps.length <= 2) { showToast('Minimum 2 steps required.', 'warning'); return; }
   _steps.splice(i, 1);
-  renderSteps(_steps);
+  buildStepInputs(_steps);
 }
-document.getElementById("addStepBtn").addEventListener("click", () => {
-  syncSteps();
-  _steps.push("");
-  renderSteps(_steps);
-  // Focus the new input
-  const inputs = document.querySelectorAll(".step-item input");
-  if (inputs.length) inputs[inputs.length - 1].focus();
+
+document.getElementById('addStepBtn').addEventListener('click', () => {
+  // Read current values from inputs before adding
+  document.querySelectorAll('#stepList .step-item input').forEach((inp, i) => { _steps[i] = inp.value; });
+  _steps.push('');
+  buildStepInputs(_steps);
+  const inputs = document.querySelectorAll('#stepList .step-item input');
+  if (inputs.length) inputs[inputs.length-1].focus();
 });
+
+/* ── Close modal ── */
+document.getElementById('modalClose').addEventListener('click',  () => closeModal('taskModal'));
+document.getElementById('modalCancel').addEventListener('click', () => closeModal('taskModal'));
+initModalCloseOnBackdrop('taskModal');
+initModalCloseOnBackdrop('deleteModal');
 
 /* ── Save task ── */
-document.getElementById("saveTaskBtn").addEventListener("click", async () => {
-  const btn   = document.getElementById("saveTaskBtn");
-  const title = document.getElementById("fTitle").value.trim();
-  const desc  = document.getElementById("fDesc").value.trim();
-  const rwd   = parseFloat(document.getElementById("fReward").value);
+document.getElementById('saveTaskBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('saveTaskBtn');
 
-  syncSteps();
-  const steps = _steps.filter(s => s.trim());
+  // Read current step values from DOM inputs
+  document.querySelectorAll('#stepList .step-item input').forEach((inp, i) => { _steps[i] = inp.value; });
+  const steps = _steps.map(s => s.trim()).filter(Boolean);
 
-  // Validate
-  if (!title)        { showToast("Task title is required.",       "warning"); return; }
-  if (!desc)         { showToast("Description is required.",      "warning"); return; }
-  if (!rwd || rwd < 1) { showToast("Reward amount is required.", "warning"); return; }
-  if (steps.length < 2) { showToast("Add at least 2 instructions.", "warning"); return; }
+  const title = document.getElementById('fTitle').value.trim();
+  const desc  = document.getElementById('fDesc').value.trim();
+  const link  = document.getElementById('fLink').value.trim();
+  const rwd   = parseFloat(document.getElementById('fReward').value);
+
+  if (!title)         { showToast('Task title is required.', 'warning'); return; }
+  if (!desc)          { showToast('Description is required.', 'warning'); return; }
+  if (!link)          { showToast('Task link is required — users need a URL to go to.', 'warning'); return; }
+  if (!rwd || rwd<1)  { showToast('Reward amount is required.', 'warning'); return; }
+  if (steps.length<2) { showToast('Add at least 2 step instructions.', 'warning'); return; }
+
+  const existing = _editingId ? _tasks.find(t => t.id === _editingId) : null;
 
   const payload = {
-    id:           _editingId || ("task_" + Date.now()),
-    icon:         document.getElementById("fIcon").value.trim()     || "⚡",
+    id:           _editingId || ('task_' + Date.now()),
+    icon:         document.getElementById('fIcon').value.trim()     || '⚡',
     title,
     description:  desc,
-    category:     document.getElementById("fCategory").value,
+    category:     document.getElementById('fCategory').value,
     reward:       rwd,
-    duration:     document.getElementById("fDuration").value.trim() || "—",
-    link:         document.getElementById("fLink").value.trim()     || null,
+    duration:     document.getElementById('fDuration').value.trim() || '—',
+    link,
     instructions: steps,
-    is_active:    document.getElementById("fActive").checked,
-    sort_order:   _editingId
-      ? (_tasks.find(t => t.id === _editingId)?.sort_order || 0)
-      : _tasks.length + 1,
+    is_active:    document.getElementById('fActive').checked,
+    sort_order:   existing?.sort_order ?? (_tasks.length + 1),
   };
 
-  setButtonLoading(btn, "Saving…");
+  setButtonLoading(btn, 'Saving…');
 
-  // Save to DB
   const sb = getSupabase();
-  try {
-    const dbPayload = {
-      id:           payload.id,
-      title:        payload.title,
-      description:  payload.description,
-      category:     payload.category,
-      icon:         payload.icon,
-      reward:       payload.reward,
-      duration:     payload.duration,
-      link:         payload.link,
-      instructions: payload.instructions,
-      is_active:    payload.is_active,
-      sort_order:   payload.sort_order,
-    };
-    const { error } = await sb.from("tasks").upsert(dbPayload, { onConflict: "id" });
-    if (error) {
-      if (error.code === "42501" || error.message?.includes("RLS") || error.message?.includes("policy")) {
-        showToast("❌ Permission denied — run supabase-admin-rls.sql first.", "error", 8000);
-      } else if (error.message?.includes("does not exist") || error.message?.includes("relation")) {
-        showToast("⚠️ Tasks table not found — run supabase-fix.sql to create it. Task saved locally only.", "warning", 6000);
-      } else {
-        showToast("DB save failed: " + error.message, "error");
-      }
-      clearButtonLoading(btn);
-      return;
+  const { error } = await sb.from('tasks').upsert(payload, { onConflict:'id' });
+
+  if (error) {
+    clearButtonLoading(btn);
+    if (error.code === '42501' || error.message?.includes('RLS') || error.message?.includes('policy')) {
+      showToast('❌ Permission denied — run supabase-admin-rls.sql first.', 'error', 8000);
+    } else if (error.message?.includes('does not exist') || error.message?.includes('relation')) {
+      showToast('❌ Tasks table missing — run supabase-fix.sql first.', 'error', 8000);
+    } else {
+      showToast('Save failed: ' + error.message, 'error');
     }
-    _usingDB = true;
-  } catch(e) {
-    console.warn("[Tasks] DB save error:", e.message);
-    showToast("Could not save to database: " + e.message, "warning");
+    return;
   }
+
+  _usingDB = true;
 
   // Update local state
   if (_editingId) {
@@ -538,74 +515,52 @@ document.getElementById("saveTaskBtn").addEventListener("click", async () => {
   }
 
   clearButtonLoading(btn);
-  closeModal("taskModal");
-  const cat = document.querySelector(".filter-btn.active")?.dataset?.cat || "all";
+  closeModal('taskModal');
+
+  showBanner();
+  const cat = document.querySelector('.filter-btn.active')?.dataset?.cat || 'all';
   renderGrid(cat);
-  document.getElementById("taskCount").textContent =
-    `${_tasks.length} tasks · ${_tasks.filter(t => t.is_active).length} active` +
-    (_usingDB ? " · Synced with database" : " · Local only");
+  document.getElementById('taskCount').textContent =
+    `${_tasks.length} tasks · ${_tasks.filter(t=>t.is_active).length} active · Live (database connected ✓)`;
 
-  const banner = document.getElementById("dbStatusBanner");
-  banner.innerHTML = _usingDB ? '' : banner.innerHTML; // keep warning visible if still not synced
-
-  showToast(
-    _usingDB
-      ? (_editingId ? "✅ Task updated and saved to database!" : "✅ New task added and saved to database!")
-      : "⚠️ Saved locally only — database not connected. See warning above.",
-    _usingDB ? "success" : "warning"
-  );
+  showToast(_editingId ? '✅ Task updated!' : '✅ New task added!', 'success');
 });
 
-/* ── Toggle active / disabled ── */
+/* ── Toggle active ── */
 async function toggleActive(id) {
-  const task = _tasks.find(t => t.id === id);
-  if (!task) return;
+  const task = _tasks.find(t => t.id === id); if (!task) return;
   const newState = !task.is_active;
-
-  if (_usingDB) {
-    const { error } = await getSupabase().from("tasks").update({ is_active: newState }).eq("id", id);
-    if (error) { showToast("Update failed: " + error.message, "error"); return; }
-  }
-
+  const { error } = await getSupabase().from('tasks').update({ is_active:newState }).eq('id', id);
+  if (error) { showToast('Update failed: '+error.message, 'error'); return; }
   task.is_active = newState;
-  const cat = document.querySelector(".filter-btn.active")?.dataset?.cat || "all";
+  const cat = document.querySelector('.filter-btn.active')?.dataset?.cat || 'all';
   renderGrid(cat);
-  showToast(`Task ${newState ? "enabled" : "disabled"}.`, "success");
+  showToast(`Task ${newState ? 'published ✓' : 'hidden'}.`, 'success');
 }
 
-/* ── Delete task ── */
-document.getElementById("deleteTaskBtn").addEventListener("click", () => {
+/* ── Delete ── */
+document.getElementById('deleteTaskBtn').addEventListener('click', () => {
   if (!_editingId) return;
   const task = _tasks.find(t => t.id === _editingId);
-  document.getElementById("deleteTaskName").textContent = `"${task?.title}"`;
-  closeModal("taskModal");
-  openModal("deleteModal");
+  document.getElementById('deleteTaskName').textContent = `"${task?.title}"`;
+  closeModal('taskModal');
+  openModal('deleteModal');
 });
 
-initModalCloseOnBackdrop("deleteModal");
-
-document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
-  if (!_editingId) return;
-  const btn = document.getElementById("confirmDeleteBtn");
-  setButtonLoading(btn, "Deleting…");
-
-  if (_usingDB) {
-    const { error } = await getSupabase().from("tasks").delete().eq("id", _editingId);
-    if (error) {
-      clearButtonLoading(btn);
-      showToast("Delete failed: " + error.message, "error");
-      return;
-    }
-  }
-
+document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('confirmDeleteBtn');
+  setButtonLoading(btn, 'Deleting…');
+  const { error } = await getSupabase().from('tasks').delete().eq('id', _editingId);
+  if (error) { clearButtonLoading(btn); showToast('Delete failed: '+error.message, 'error'); return; }
   _tasks = _tasks.filter(t => t.id !== _editingId);
   clearButtonLoading(btn);
-  closeModal("deleteModal");
+  closeModal('deleteModal');
   _editingId = null;
-  const cat = document.querySelector(".filter-btn.active")?.dataset?.cat || "all";
+  const cat = document.querySelector('.filter-btn.active')?.dataset?.cat || 'all';
   renderGrid(cat);
-  showToast("Task deleted.", "info");
+  showToast('Task deleted.', 'info');
 });
+
 </script>
 </body>
 </html>
